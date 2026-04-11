@@ -1207,13 +1207,17 @@ public class CollectionUtils {
      * for each element <em>e</em> in <em>a</em> or <em>b</em>.
      * </p>
      *
-     * @param a  the first collection, must not be null
-     * @param b  the second collection, must not be null
+     * @param collectionA  the first collection, must not be null
+     * @param collectionB  the second collection, must not be null
      * @return {@code true} iff the collections contain the same elements with the same cardinalities.
      * @throws NullPointerException if either collection is null
      */
-    public static boolean isEqualCollection(final Collection<?> a, final Collection<?> b) {
-        return CardinalityHelper.equals(a, b);
+/*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se han renombrado 'a' y 'b' por 'collectionA' y 'collectionB' para mejorar la legibilidad.
+     */
+    public static boolean isEqualCollection(final Collection<?> collectionA, final Collection<?> collectionB) {
+        return CardinalityHelper.equals(collectionA, collectionB);
     }
 
     /**
