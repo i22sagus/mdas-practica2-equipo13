@@ -437,16 +437,21 @@ public class CollectionUtils {
      * </p>
      *
      * @param <O>  the element type
-     * @param a  the first collection, must not be null
-     * @param b  the second collection, must not be null
-     * @param c  the comparator to use for the merge.
+     * @param iterableA  the first collection, must not be null
+     * @param iterableB  the second collection, must not be null
+     * @param comparator  the comparator to use for the merge.
      * @return a new sorted List, containing the elements of Collection a and b
      * @throws NullPointerException if either collection or the comparator is null
      * @since 4.0
      */
-    public static <O> List<O> collate(final Iterable<? extends O> a, final Iterable<? extends O> b,
-                                      final Comparator<? super O> c) {
-        return collate(a, b, c, true);
+/*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se han sustituido los parámetros de una sola letra ('a', 'b', 'c') por nombres 
+     * que revelan su intención ('iterableA', 'iterableB', 'comparator').
+     */
+    public static <O> List<O> collate(final Iterable<? extends O> iterableA, final Iterable<? extends O> iterableB,
+                                      final Comparator<? super O> comparator) {
+        return collate(iterableA, iterableB, comparator, true);
     }
 
     /**
