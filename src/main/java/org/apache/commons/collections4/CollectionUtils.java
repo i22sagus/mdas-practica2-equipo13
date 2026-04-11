@@ -1976,9 +1976,9 @@ public class CollectionUtils {
      * satisfy the predicate condition will be equal to the cardinality of <em>e</em> in <em>a</em>.
      * </p>
      *
-     * @param a  the collection to subtract from, must not be null
-     * @param b  the collection to subtract, must not be null
-     * @param p  the condition used to determine which elements of <em>b</em> are
+     * @param collectionA  the collection to subtract from, must not be null
+     * @param collectionB  the collection to subtract, must not be null
+     * @param condition  the condition used to determine which elements of <em>b</em> are
      *        subtracted.
      * @param <O> the generic type that is able to represent the types contained
      *        in both input collections.
@@ -1987,20 +1987,25 @@ public class CollectionUtils {
      * @since 4.0
      * @see Collection#removeAll
      */
-    public static <O> Collection<O> subtract(final Iterable<? extends O> a,
-                                             final Iterable<? extends O> b,
-                                             final Predicate<O> p) {
-        Objects.requireNonNull(a, "a");
-        Objects.requireNonNull(b, "b");
-        Objects.requireNonNull(p, "p");
+/*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se han cambiado las variables 'a', 'b' y 'p' por nombres descriptivos ('collectionA', 
+     * 'collectionB' y 'condition') para evitar variables de una sola letra sin contexto.
+     */
+    public static <O> Collection<O> subtract(final Iterable<? extends O> collectionA,
+                                             final Iterable<? extends O> collectionB,
+                                             final Predicate<O> condition) {
+        Objects.requireNonNull(collectionA, "collectionA");
+        Objects.requireNonNull(collectionB, "collectionB");
+        Objects.requireNonNull(condition, "condition");
         final ArrayList<O> list = new ArrayList<>();
         final HashBag<O> bag = new HashBag<>();
-        for (final O element : b) {
-            if (p.test(element)) {
+        for (final O element : collectionB) {
+            if (condition.test(element)) {
                 bag.add(element);
             }
         }
-        for (final O element : a) {
+        for (final O element : collectionA) {
             if (!bag.remove(element, 1)) {
                 list.add(element);
             }
