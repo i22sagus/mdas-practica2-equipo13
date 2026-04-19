@@ -155,15 +155,20 @@ public class ArrayStack<E> extends ArrayList<E> {
      */
     public int search(final Object object) {
         int i = size() - 1;        // Current index
-        int n = 1;                 // Current distance
+        /*
+         * MDAS Refactorización (Reglas de nombrado): 
+         * En lugar de usar una variable 'n' y un comentario para explicarla, 
+         * la renombramos directamente a 'currentDistance' para que el código se explique solo.
+         */
+        int currentDistance = 1;                 
         while (i >= 0) {
             final Object current = get(i);
             if (object == null && current == null ||
                 object != null && object.equals(current)) {
-                return n;
+                return currentDistance;
             }
             i--;
-            n++;
+            currentDistance++;
         }
         return -1;
     }
