@@ -1489,8 +1489,13 @@ public class CollectionUtils {
      * @throws NullPointerException if either parameter is null
      * @since 4.0 (method existed in 3.2 but was completely broken)
      */
-    public static <E> Collection<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
-        return ListUtils.removeAll(collection, remove);
+  /*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se cambia 'remove' por 'elementsToRemove'. Una variable debe ser un sustantivo, 
+     * no un verbo (el verbo se reserva para las funciones).
+     */
+    public static <E> Collection<E> removeAll(final Collection<E> collection, final Collection<?> elementsToRemove) {
+        return ListUtils.removeAll(collection, elementsToRemove);
     }
 
     /**
