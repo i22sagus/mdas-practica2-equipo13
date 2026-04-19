@@ -103,12 +103,17 @@ public class ArrayStack<E> extends ArrayList<E> {
      * @throws EmptyStackException  if there are not enough items on the
      *  stack to satisfy this request
      */
-    public E peek(final int n) throws EmptyStackException {
-        final int m = size() - n - 1;
-        if (m < 0) {
+   /*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se aporta contexto semántico a variables matemáticas opacas ('n' y 'm') 
+     * renombrándolas a 'depth' y 'targetIndex'.
+     */
+    public E peek(final int depth) throws EmptyStackException {
+        final int targetIndex = size() - depth - 1;
+        if (targetIndex < 0) {
             throw new EmptyStackException();
         }
-        return get(m);
+        return get(targetIndex);
     }
 
     /**
