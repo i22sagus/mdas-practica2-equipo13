@@ -1120,15 +1120,20 @@ public class CollectionUtils {
      * @return the populated cardinality map
      * @throws NullPointerException if coll is null
      */
-    public static <O> Map<O, Integer> getCardinalityMap(final Iterable<? extends O> coll) {
-        Objects.requireNonNull(coll, "coll");
+    public static <O> Map<O, Integer> getCardinalityMap(final Iterable<? extends O> collection) {
+        Objects.requireNonNull(collection, "collection");
         final Map<O, Integer> count = new HashMap<>();
-        for (final O obj : coll) {
-            final Integer c = count.get(obj);
-            if (c == null) {
+        for (final O obj : collection) {
+            /*
+             * MDAS Refactorización (Reglas de nombrado): 
+             * Se renombra la variable temporal 'c' a 'currentCount' para que 
+             * revele su intención real en el contexto del mapa.
+             */
+            final Integer currentCount = count.get(obj);
+            if (currentCount == null) {
                 count.put(obj, Integer.valueOf(1));
             } else {
-                count.put(obj, Integer.valueOf(c.intValue() + 1));
+                count.put(obj, Integer.valueOf(currentCount.intValue() + 1));
             }
         }
         return count;
