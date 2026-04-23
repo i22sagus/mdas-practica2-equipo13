@@ -673,7 +673,9 @@ public class CollectionUtils {
     public static boolean containsAny(final Collection<?> firstCollection, final Collection<?> secondCollection) {
         Objects.requireNonNull(firstCollection, "firstCollection");
         Objects.requireNonNull(secondCollection, "secondCollection");
-        if (firstCollection.size() < secondCollection.size()) {
+        /* * MDAS: Se extrae la comprobación de tamaños a un método privado para mantener 
+         * el mismo nivel de abstracción dentro de la función (Regla de Funciones). */
+        if (isSmallerCollection(firstCollection, secondCollection)) {
             for (final Object elementFromFirst : firstCollection) {
                 if (secondCollection.contains(elementFromFirst)) {
                     return true;
@@ -687,6 +689,10 @@ public class CollectionUtils {
             }
         }
         return false;
+    }
+
+    private static boolean isSmallerCollection(final Collection<?> first, final Collection<?> second) {
+        return first.size() < second.size();
     }
 
     /**
