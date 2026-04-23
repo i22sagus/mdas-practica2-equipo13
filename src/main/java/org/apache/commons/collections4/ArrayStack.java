@@ -162,14 +162,18 @@ public class ArrayStack<E> extends ArrayList<E> {
         int currentDistance = 1;                 
         while (i >= 0) {
             final Object current = get(i);
-            if (object == null && current == null ||
-                object != null && object.equals(current)) {
+            /* MDAS Refactorización: Se encapsula el condicional complejo en una función privada.*/
+            if (isMatch(object, current)) {
                 return currentDistance;
             }
             i--;
             currentDistance++;
         }
         return -1;
+    }
+
+    private boolean isMatch(final Object object, final Object current) {
+        return (object == null && current == null) || (object != null && object.equals(current));
     }
 
 }
