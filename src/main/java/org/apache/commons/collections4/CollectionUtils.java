@@ -665,18 +665,23 @@ public class CollectionUtils {
      * @since 2.1
      * @see #intersection
      */
-    public static boolean containsAny(final Collection<?> coll1, final Collection<?> coll2) {
-        Objects.requireNonNull(coll1, "coll1");
-        Objects.requireNonNull(coll2, "coll2");
-        if (coll1.size() < coll2.size()) {
-            for (final Object aColl1 : coll1) {
-                if (coll2.contains(aColl1)) {
+    /*
+     * MDAS Refactorización (Reglas de nombrado): 
+     * Se elimina la abreviatura 'coll' en favor de la palabra completa 'collection' para 
+     * facilitar la lectura y búsqueda, incluyendo las variables del bucle foreach.
+     */
+    public static boolean containsAny(final Collection<?> firstCollection, final Collection<?> secondCollection) {
+        Objects.requireNonNull(firstCollection, "firstCollection");
+        Objects.requireNonNull(secondCollection, "secondCollection");
+        if (firstCollection.size() < secondCollection.size()) {
+            for (final Object elementFromFirst : firstCollection) {
+                if (secondCollection.contains(elementFromFirst)) {
                     return true;
                 }
             }
         } else {
-            for (final Object aColl2 : coll2) {
-                if (coll1.contains(aColl2)) {
+            for (final Object elementFromSecond : secondCollection) {
+                if (firstCollection.contains(elementFromSecond)) {
                     return true;
                 }
             }
