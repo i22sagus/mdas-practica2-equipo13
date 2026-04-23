@@ -49,9 +49,8 @@ public class ArrayStack<E> extends ArrayList<E> {
     /** Ensure serialization compatibility */
     private static final long serialVersionUID = 2130079159931574599L;
 
-    /**
-     * Constructs a new empty {@code ArrayStack}. The initial size
-     * is controlled by {@code ArrayList} and is currently 10.
+    /* * MDAS: Se elimina el comentario Javadoc redundante ("Constructs a new empty ArrayStack") 
+     * porque el nombre del constructor ya lo explica por sí mismo (Regla Comentarios).
      */
     public ArrayStack() {
     }
