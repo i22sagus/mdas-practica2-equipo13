@@ -1130,19 +1130,21 @@ public class CollectionUtils {
         Objects.requireNonNull(collection, "collection");
         final Map<O, Integer> count = new HashMap<>();
         for (final O obj : collection) {
-            /*
-             * MDAS Refactorización (Reglas de nombrado): 
-             * Se renombra la variable temporal 'c' a 'currentCount' para que 
-             * revele su intención real en el contexto del mapa.
-             */
-            final Integer currentCount = count.get(obj);
-            if (currentCount == null) {
-                count.put(obj, Integer.valueOf(1));
-            } else {
-                count.put(obj, Integer.valueOf(currentCount.intValue() + 1));
-            }
+            /* * MDAS: Se extrae el bloque if/else de incremento a una función 
+             * para que el bucle for "haga una sola cosa" (Regla de Funciones). */
+            incrementFrequency(count, obj);
         }
         return count;
+    }
+
+    /*
+    * MDAS actualización (Se mantienen las reglas de nombrado aplicadas anteriormente): 
+    * Se renombra la variable temporal 'c' a 'currentCount' para que 
+    * revele su intención real en el contexto del mapa.
+    */
+    private static <O> void incrementFrequency(Map<O, Integer> countMap, O obj) {
+        final Integer currentCount = countMap.get(obj);
+        countMap.put(obj, currentCount == null ? 1 : currentCount + 1);
     }
 
     /**
