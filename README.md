@@ -40,80 +40,13 @@
  |                                                                      |
  +======================================================================+
 --->
-Apache Commons Collections
-===================
 
-[![Java CI](https://github.com/apache/commons-collections/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-collections/actions/workflows/maven.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/org.apache.commons/commons-collections4?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.commons/commons-collections4)
-[![Javadocs](https://javadoc.io/badge/org.apache.commons/commons-collections4/4.5.0.svg)](https://javadoc.io/doc/org.apache.commons/commons-collections4/4.5.0)
-[![CodeQL](https://github.com/apache/commons-collections/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apache/commons-collections/actions/workflows/codeql-analysis.yml)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/apache/commons-collections/badge)](https://api.securityscorecards.dev/projects/github.com/apache/commons-collections)
+# Apache Commons Collections
 
-The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.
+Para la realización de la práctica 2 hemos optado por utilizar el repositorio Apache Commons Collection.
 
-Documentation
--------------
+Integrantes del equipo:
 
-More information can be found on the [Apache Commons Collections homepage](https://commons.apache.org/proper/commons-collections).
-The [Javadoc](https://commons.apache.org/proper/commons-collections/apidocs) can be browsed.
-Questions related to the usage of Apache Commons Collections should be posted to the [user mailing list](https://commons.apache.org/mail-lists.html).
-
-Getting the latest release
---------------------------
-You can download source and binaries from our [download page](https://commons.apache.org/proper/commons-collections/download_collections.cgi).
-
-Alternatively, you can pull it from the central Maven repositories:
-
-```xml
-<dependency>
-  <groupId>org.apache.commons</groupId>
-  <artifactId>commons-collections4</artifactId>
-  <version>4.5.0</version>
-</dependency>
-```
-
-Building
---------
-
-Building requires a Java JDK and [Apache Maven](https://maven.apache.org/).
-The required Java version is found in the `pom.xml` as the `maven.compiler.source` property.
-
-From a command shell, run `mvn` without arguments to invoke the default Maven goal to run all tests and checks.
-
-Contributing
-------------
-
-We accept Pull Requests via GitHub. The [developer mailing list](https://commons.apache.org/mail-lists.html) is the main channel of communication for contributors.
-There are some guidelines which will make applying PRs easier for us:
-+ No tabs! Please use spaces for indentation.
-+ Respect the existing code style for each file.
-+ Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-+ Provide JUnit tests for your changes and make sure your changes don't break any existing tests by running `mvn`.
-+ Before you pushing a PR, run `mvn` (by itself), this runs the default goal, which contains all build checks.
-+ To see the code coverage report, regardless of coverage failures, run `mvn clean site -Dcommons.jacoco.haltOnFailure=false`
-
-If you plan to contribute on a regular basis, please consider filing a [contributor license agreement](https://www.apache.org/licenses/#clas).
-You can learn more about contributing via GitHub in our [contribution guidelines](CONTRIBUTING.md).
-
-License
--------
-This code is licensed under the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0).
-
-See the `NOTICE.txt` file for required notices and attributions.
-
-Donating
---------
-You like Apache Commons Collections? Then [donate back to the ASF](https://www.apache.org/foundation/contributing.html) to support development.
-
-Additional Resources
---------------------
-
-+ [Apache Commons Homepage](https://commons.apache.org/)
-+ [Apache Issue Tracker (JIRA)](https://issues.apache.org/jira/browse/COLLECTIONS)
-+ [Apache Commons Slack Channel](https://the-asf.slack.com/archives/C60NVB8AD)
-+ [Apache Commons Twitter Account](https://twitter.com/ApacheCommons)
-
-Apache Commons Components
--------------------------
-
-Please see the [list of components](https://commons.apache.org/components.html)
+    José Trujillo Medina - i22trmej
+    Sergio Sampedro Guerrero - i22sagus
+    Jorge González Vidal - i82govij
