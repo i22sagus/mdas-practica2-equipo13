@@ -345,12 +345,12 @@ public class CollectionUtils {
         return changed;
     }
 
+    /* * MDAS: Se limpia el Javadoc eliminando los comentarios de los @param que 
+     * solo repetían el nombre de la variable, reduciendo la redundancia (Regla Comentarios).
+     */
     /**
      * Adds an element to the collection unless the element is null.
      *
-     * @param <T>  the type of object the {@link Collection} contains
-     * @param collection  the collection to add to, must not be null
-     * @param object  the object to add, if null it will not be added
      * @return true if the collection changed
      * @throws NullPointerException if the collection is null
      * @since 3.2
