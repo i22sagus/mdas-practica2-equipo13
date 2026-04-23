@@ -324,17 +324,23 @@ public class ClosureUtils {
     @SuppressWarnings("unchecked")
     public static <E> Closure<E> switchMapClosure(final Map<? extends E, Closure<E>> objectsAndClosures) {
         Objects.requireNonNull(objectsAndClosures, "objectsAndClosures");
-        final Closure<? super E> def = objectsAndClosures.remove(null);
+        
+        /*
+         * MDAS Refactorización (Reglas de nombrado): 
+         * Se expanden las abreviaturas incomprensibles ('def', 'trs', 'preds') a nombres 
+         * más entendibles y claros ('defaultClosure', 'closuresArray', 'predicatesArray').
+         */
+        final Closure<  ? super E> defaultClosure = objectsAndClosures.remove(null);
         final int size = objectsAndClosures.size();
-        final Closure<? super E>[] trs = new Closure[size];
-        final Predicate<E>[] preds = new Predicate[size];
+        final Closure<? super E>[] closuresArray = new Closure[size];
+        final Predicate<E>[] predicatesArray = new Predicate[size];
         int i = 0;
         for (final Map.Entry<? extends E, Closure<E>> entry : objectsAndClosures.entrySet()) {
-            preds[i] = EqualPredicate.<E>equalPredicate(entry.getKey());
-            trs[i] = entry.getValue();
+            predicatesArray[i] = EqualPredicate.<E>equalPredicate(entry.getKey());
+            closuresArray[i] = entry.getValue();
             i++;
         }
-        return ClosureUtils.<E>switchClosure(preds, trs, def);
+        return ClosureUtils.<E>switchClosure(predicatesArray, closuresArray, defaultClosure);
     }
 
     /**
