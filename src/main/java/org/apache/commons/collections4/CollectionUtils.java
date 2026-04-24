@@ -320,6 +320,10 @@ public class CollectionUtils {
     public static <C> boolean addAll(final Collection<C> collection, final Iterable<? extends C> iterable) {
         Objects.requireNonNull(collection, "collection");
         Objects.requireNonNull(iterable, "iterable");
+        public static <C> boolean addAll(final Collection<C> collection, final Iterable<? extends C> iterable) {
+      /* * MDAS: Se elimina la línea en blanco al inicio del cuerpo de la función. 
+         * No debe haber separación vertical con su cuerpo (Regla de Formato 2). 
+         */
         if (iterable instanceof Collection<?>) {
             return collection.addAll((Collection<? extends C>) iterable);
         }
