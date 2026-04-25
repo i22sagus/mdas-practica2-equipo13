@@ -77,6 +77,9 @@ final class ArrayUtils {
             startIndex = 0;
         }
         if (objectToFind == null) {
+            /* * MDAS: Se separan asignaciones y operadores con espacios para 
+         * cumplir las Reglas de Formato 3 y 4.
+         */
             for (int i = startIndex; i < array.length; i++) {
                 if (array[i] == null) {
                     return i;
