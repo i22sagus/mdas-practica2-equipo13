@@ -294,14 +294,8 @@ public class CollectionUtils {
      * @param collection  the collection to add to, must not be null
      * @param enumeration  the enumeration of elements to add, must not be null
      * @return {@code true} if the collections was changed, {@code false} otherwise
+     * @throws NullPointerException if the collection or enumeration is null
      */
-
-    /* * MDAS: Se añaden llaves e indentación a la sentencia if en lugar 
-         * de mantenerla en una sola línea (Regla de Formato 5).
-         */
-        if (collection == null) {
-            throw new NullPointerException("Collection must not be null.");
-        }
     public static <C> boolean addAll(final Collection<C> collection, final Enumeration<? extends C> enumeration) {
         Objects.requireNonNull(collection, "collection");
         Objects.requireNonNull(enumeration, "enumeration");
