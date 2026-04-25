@@ -359,8 +359,19 @@ public class CollectionUtils {
      * @since 3.2
      */
     public static <T> boolean addIgnoreNull(final Collection<T> collection, final T object) {
+        /* MDAS: Reducir la complejidad de la función. Extraer la validación de nulos
+         * permite que 'addIgnoreNull' tenga un solo nivel de abstracción (Regla Funciones).
+         */
+        validateCollectionNotNull(collection);
+        return isNotNull(object) && collection.add(object);
+    }
+
+    private static void validateCollectionNotNull(final Collection<?> collection) {
         Objects.requireNonNull(collection, "collection");
-        return object != null && collection.add(object);
+    }
+
+    private static boolean isNotNull(final Object object) {
+        return object != null;
     }
 
     /**
