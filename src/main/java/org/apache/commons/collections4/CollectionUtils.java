@@ -407,7 +407,7 @@ public class CollectionUtils {
      */
     public static <O extends Comparable<? super O>> List<O> collate(final Iterable<? extends O> a,
                                                                     final Iterable<? extends O> b) {
-        return collate(a, b, ComparatorUtils.<O>naturalComparator(), true);
+        return collateIncludingDuplicates(a, b, ComparatorUtils.<O>naturalComparator());
     }
 
     /**
@@ -429,7 +429,7 @@ public class CollectionUtils {
     public static <O extends Comparable<? super O>> List<O> collate(final Iterable<? extends O> a,
                                                                     final Iterable<? extends O> b,
                                                                     final boolean includeDuplicates) {
-        return collate(a, b, ComparatorUtils.<O>naturalComparator(), includeDuplicates);
+        return collateInternal(a, b, ComparatorUtils.<O>naturalComparator(), includeDuplicates);
     }
 
     /**
@@ -447,14 +447,48 @@ public class CollectionUtils {
      * @throws NullPointerException if either collection or the comparator is null
      * @since 4.0
      */
-/*
-     * MDAS Refactorización (Reglas de nombrado): 
-     * Se han sustituido los parámetros de una sola letra ('a', 'b', 'c') por nombres 
-     * que revelan su intención ('iterableA', 'iterableB', 'comparator').
-     */
     public static <O> List<O> collate(final Iterable<? extends O> iterableA, final Iterable<? extends O> iterableB,
                                       final Comparator<? super O> comparator) {
-        return collate(iterableA, iterableB, comparator, true);
+        return collateIncludingDuplicates(iterableA, iterableB, comparator);
+    }
+
+    /*
+     * MDAS: Eliminación de argumento de bandera (Flag Argument) en la API pública.
+     * Según Clean Code, pasar un booleano indica que la función hace dos cosas.
+     * Se expone la funcionalidad a través de dos métodos con nombres descriptivos
+     * ('Including' e 'Ignoring') y se encapsula el booleano en una función interna
+     * privada para no duplicar el algoritmo matemático subyacente (Regla de Funciones).
+     */
+    /**
+     * Merges two sorted Collections keeping duplicate elements.
+     *
+     * @param <O>  the element type
+     * @param iterableA  the first collection, must not be null
+     * @param iterableB  the second collection, must not be null
+     * @param comparator  the comparator to use for the merge
+     * @return a new sorted List, containing the elements of Collection a and b
+     * @throws NullPointerException if either collection or the comparator is null
+     */
+    public static <O> List<O> collateIncludingDuplicates(final Iterable<? extends O> iterableA,
+                                                         final Iterable<? extends O> iterableB,
+                                                         final Comparator<? super O> comparator) {
+        return collateInternal(iterableA, iterableB, comparator, true);
+    }
+
+    /**
+     * Merges two sorted Collections removing duplicate elements.
+     *
+     * @param <O>  the element type
+     * @param iterableA  the first collection, must not be null
+     * @param iterableB  the second collection, must not be null
+     * @param comparator  the comparator to use for the merge
+     * @return a new sorted List without duplicates
+     * @throws NullPointerException if either collection or the comparator is null
+     */
+    public static <O> List<O> collateIgnoringDuplicates(final Iterable<? extends O> iterableA,
+                                                        final Iterable<? extends O> iterableB,
+                                                        final Comparator<? super O> comparator) {
+        return collateInternal(iterableA, iterableB, comparator, false);
     }
 
     /**
@@ -465,25 +499,25 @@ public class CollectionUtils {
      * </p>
      *
      * @param <O>  the element type
-     * @param iterableA  the first collection, must not be null
-     * @param iterableB  the second collection, must not be null
-     * @param comparator  the comparator to use for the merge.
+    * @param a  the first collection, must not be null
+    * @param b  the second collection, must not be null
+    * @param c  the comparator to use for the merge.
      * @param includeDuplicates  if {@code true} duplicate elements will be retained, otherwise
      *   they will be removed in the output collection
      * @return a new sorted List, containing the elements of Collection a and b
      * @throws NullPointerException if either collection or the comparator is null
      * @since 4.0
      */
-    public static <O> List<O> collate(final Iterable<? extends O> iterableA, final Iterable<? extends O> iterableB,
-                                      final Comparator<? super O> comparator, final boolean includeDuplicates) {
-        Objects.requireNonNull(iterableA, "iterableA");
-        Objects.requireNonNull(iterableB, "iterableB");
-        Objects.requireNonNull(comparator, "comparator");
+    private static <O> List<O> collateInternal(final Iterable<? extends O> a, final Iterable<? extends O> b,
+                                               final Comparator<? super O> c, final boolean includeDuplicates) {
+        Objects.requireNonNull(a, "iterableA");
+        Objects.requireNonNull(b, "iterableB");
+        Objects.requireNonNull(c, "comparator");
         // if both Iterables are a Collection, we can estimate the size
-        final int totalSize = iterableA instanceof Collection<?> && iterableB instanceof Collection<?> ?
-                Math.max(1, ((Collection<?>) iterableA).size() + ((Collection<?>) iterableB).size()) : 10;
+        final int totalSize = a instanceof Collection<?> && b instanceof Collection<?> ?
+                Math.max(1, ((Collection<?>) a).size() + ((Collection<?>) b).size()) : 10;
 
-        final Iterator<O> iterator = new CollatingIterator<>(comparator, iterableA.iterator(), iterableB.iterator());
+        final Iterator<O> iterator = new CollatingIterator<>(c, a.iterator(), b.iterator());
         if (includeDuplicates) {
             return IteratorUtils.toList(iterator, totalSize);
         }
