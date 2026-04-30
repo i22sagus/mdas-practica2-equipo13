@@ -109,10 +109,16 @@ public class ArrayStack<E> extends ArrayList<E> {
      */
     public E peek(final int depth) throws EmptyStackException {
         final int targetIndex = size() - depth - 1;
-        if (targetIndex < 0) {
+        /* * MDAS: La gestión de errores y validación es "una cosa". Se extrae 
+         * para mantener limpio el flujo principal (Regla de Funciones). */
+        validateTargetIndex(targetIndex);
+        return get(targetIndex);
+    }
+
+    private void validateTargetIndex(int index) {
+        if (index < 0) {
             throw new EmptyStackException();
         }
-        return get(targetIndex);
     }
 
     /**
