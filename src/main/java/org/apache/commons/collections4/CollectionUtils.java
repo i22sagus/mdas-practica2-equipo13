@@ -2072,18 +2072,26 @@ public class CollectionUtils {
         Objects.requireNonNull(collectionB, "collectionB");
         Objects.requireNonNull(condition, "condition");
         final ArrayList<O> list = new ArrayList<>();
-        final HashBag<O> bag = new HashBag<>();
-        for (final O element : collectionB) {
-            if (condition.test(element)) {
-                bag.add(element);
-            }
-        }
+        /* * MDAS: El método subtract hacía tres cosas. Extraemos la construcción 
+         * de la bolsa (HashBag) a un método privado (Regla Hacer Una Sola Cosa). */
+        final HashBag<O> bag = buildFilteredBag(collectionB, condition);
+        
         for (final O element : collectionA) {
             if (!bag.remove(element, 1)) {
                 list.add(element);
             }
         }
         return list;
+    }
+
+    private static <O> HashBag<O> buildFilteredBag(Iterable<? extends O> collection, Predicate<O> condition) {
+        final HashBag<O> bag = new HashBag<>();
+        for (final O element : collection) {
+            if (condition.test(element)) {
+                bag.add(element);
+            }
+        }
+        return bag;
     }
 
     /**
