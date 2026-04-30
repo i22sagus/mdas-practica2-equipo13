@@ -721,20 +721,18 @@ public class CollectionUtils {
     public static boolean containsAny(final Collection<?> firstCollection, final Collection<?> secondCollection) {
         Objects.requireNonNull(firstCollection, "firstCollection");
         Objects.requireNonNull(secondCollection, "secondCollection");
-        /* * MDAS: Se extrae la comprobación de tamaños a un método privado para mantener 
-         * el mismo nivel de abstracción dentro de la función (Regla de Funciones). */
+        /* * MDAS: Se extraen los bucles a una función delegada 'hasCommonElements'. 
+         * La función padre decide la estrategia, la función hija ejecuta la búsqueda (Regla Funciones). */
         if (isSmallerCollection(firstCollection, secondCollection)) {
-            for (final Object elementFromFirst : firstCollection) {
-                if (secondCollection.contains(elementFromFirst)) {
-                    return true;
-                }
-            }
+            return hasCommonElements(firstCollection, secondCollection);
         } else {
-            for (final Object elementFromSecond : secondCollection) {
-                if (firstCollection.contains(elementFromSecond)) {
-                    return true;
-                }
-            }
+            return hasCommonElements(secondCollection, firstCollection);
+        }
+    }
+
+    private static boolean hasCommonElements(Collection<?> elementsToSearch, Collection<?> targetCollection) {
+        for (final Object element : elementsToSearch) {
+            if (targetCollection.contains(element)) return true;
         }
         return false;
     }
