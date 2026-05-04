@@ -269,12 +269,10 @@ public class ListUtils {
     public static <E> List<E> intersection(final List<? extends E> list1, final List<? extends E> list2) {
         final List<E> result = new ArrayList<>();
 
-        List<? extends E> smaller = list1;
-        List<? extends E> larger = list2;
-        if (list1.size() > list2.size()) {
-            smaller = list2;
-            larger = list1;
-        }
+        /* MDAS: Refactoring.guru -> Extract Method. Se separa la fase de inicialización 
+         * de colecciones de la fase puramente algorítmica. */
+        final List<? extends E> smaller = getSmallerList(list1, list2);
+        final List<? extends E> larger = getLargerList(list1, list2);
 
         final HashSet<E> hashSet = new HashSet<>(smaller);
 
@@ -285,6 +283,14 @@ public class ListUtils {
             }
         }
         return result;
+    }
+
+    private static <E> List<? extends E> getSmallerList(final List<? extends E> list1, final List<? extends E> list2) {
+        return list1.size() > list2.size() ? list2 : list1;
+    }
+
+    private static <E> List<? extends E> getLargerList(final List<? extends E> list1, final List<? extends E> list2) {
+        return list1.size() > list2.size() ? list1 : list2;
     }
 
     /**
