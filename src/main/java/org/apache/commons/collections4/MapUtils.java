@@ -1670,14 +1670,9 @@ public class MapUtils {
                 map.put(keyval.getKey(), keyval.getValue());
             }
         } else if (obj instanceof Object[]) {
-            for (int i = 0; i < array.length; i++) {
-                final Object[] sub = (Object[]) array[i];
-                if (sub == null || sub.length < 2) {
-                    throw new IllegalArgumentException("Invalid array element: " + i);
-                }
-                // these casts can fail if array has incorrect types
-                map.put((K) sub[0], (V) sub[1]);
-            }
+            /* MDAS -> Extract Method. Se aísla la carga desde sub-arrays 
+             * mejorando el principio de responsabilidad única. */
+            populateFromObjectArrays(map, array);
         } else {
             for (int i = 0; i < array.length - 1;) {
                 // these casts can fail if array has incorrect types
@@ -1693,6 +1688,18 @@ public class MapUtils {
         for (final Object element : array) {
             final Map.Entry<K, V> entry = (Map.Entry<K, V>) element;
             map.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    /* Extracción del bloque de código de Object[] */
+    @SuppressWarnings("unchecked")
+    private static <K, V> void populateFromObjectArrays(final Map<K, V> map, final Object[] array) {
+        for (int i = 0; i < array.length; i++) {
+            final Object[] sub = (Object[]) array[i];
+            if (sub == null || sub.length < 2) {
+                throw new IllegalArgumentException("Invalid array element: " + i);
+            }
+            map.put((K) sub[0], (V) sub[1]);
         }
     }
 
