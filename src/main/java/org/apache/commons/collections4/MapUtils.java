@@ -1660,11 +1660,9 @@ public class MapUtils {
         }
         final Object obj = array[0];
         if (obj instanceof Map.Entry) {
-            for (final Object element : array) {
-                // cast ok here, type is checked above
-                final Map.Entry<K, V> entry = (Map.Entry<K, V>) element;
-                map.put(entry.getKey(), entry.getValue());
-            }
+            /* MDAS -> Extract Method. Se extrae el bloque a un 
+             * método privado para reducir la longitud del método principal (Long Method). */
+            populateFromMapEntries(map, array);
         } else if (obj instanceof KeyValue) {
             for (final Object element : array) {
                 // cast ok here, type is checked above
@@ -1687,6 +1685,15 @@ public class MapUtils {
             }
         }
         return map;
+    }
+
+    /* Extraccion del bloque de código del primer if */
+    @SuppressWarnings("unchecked")
+    private static <K, V> void populateFromMapEntries(final Map<K, V> map, final Object[] array) {
+        for (final Object element : array) {
+            final Map.Entry<K, V> entry = (Map.Entry<K, V>) element;
+            map.put(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
