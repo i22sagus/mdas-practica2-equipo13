@@ -1113,8 +1113,13 @@ public class IterableUtils {
      * @return a new iterable, interleaving the provided iterables
      * @throws NullPointerException if either of the provided iterables is null
      */
+    // El IDE creará automáticamente la constante estática al principio de la clase
+    private static final String ITERABLE_PARAM_NAME = "iterable";
+
+    // ...
     public static <E> Iterable<E> zippingIterable(final Iterable<? extends E> first, final Iterable<? extends E>... others) {
-        Objects.requireNonNull(first, "iterable");
+        /* MDAS: VS Code 'Extract Constant'. Evitamos literales propensos a fallos tipográficos. */
+        Objects.requireNonNull(first, ITERABLE_PARAM_NAME);
         checkNotNull(others);
         return new FluentIterable<E>() {
             @Override
