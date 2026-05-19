@@ -751,7 +751,9 @@ public class ListUtils {
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> union(final List<? extends E> list1, final List<? extends E> list2) {
-        final ArrayList<E> result = new ArrayList<>(list1.size() + list2.size());
+        /* MDAS: VS Code refactorizacion 'Extract Variable'. Se aísla el cálculo del tamaño total. */
+        int combinedSize = list1.size() + list2.size();
+        final ArrayList<E> result = new ArrayList<>(combinedSize);
         result.addAll(list1);
         result.addAll(list2);
         return result;
