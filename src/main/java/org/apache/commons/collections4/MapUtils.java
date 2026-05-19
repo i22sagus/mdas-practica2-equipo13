@@ -1997,7 +1997,10 @@ public class MapUtils {
             final Object childKey = entry.getKey();
             final Object childValue = entry.getValue();
             if (childValue instanceof Map && !lineage.contains(childValue)) {
-                verbosePrintInternal(out, childKey == null ? "null" : childKey, (Map<?, ?>) childValue, lineage, debug);
+                /* MDAS: VS Code 'Extract Variable'. Sacamos la evaluación de nulos 
+                 * de la lista de parámetros para que la llamada recursiva quede limpia. */
+                final Object formattedKey = childKey == null ? "null" : childKey;
+                verbosePrintInternal(out, formattedKey, (Map<?, ?>) childValue, lineage, debug);
             } else {
                 printIndent(out, lineage.size());
                 out.print(childKey);
