@@ -1119,8 +1119,10 @@ public class IterableUtils {
         return new FluentIterable<E>() {
             @Override
             public Iterator<E> iterator() {
+                /* MDAS: VS Code refactorizacion 'Extract Variable'. Se clarifica la intencion matematica. */
+                int totalIteratorsCount = others.length + 1;
                 @SuppressWarnings("unchecked") // safe
-                final Iterator<? extends E>[] iterators = new Iterator[others.length + 1];
+                final Iterator<? extends E>[] iterators = new Iterator[totalIteratorsCount];
                 iterators[0] = first.iterator();
                 for (int i = 0; i < others.length; i++) {
                     iterators[i + 1] = others[i].iterator();
