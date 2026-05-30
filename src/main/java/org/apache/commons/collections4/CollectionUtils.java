@@ -1181,12 +1181,15 @@ public class CollectionUtils {
     public static <O> Map<O, Integer> getCardinalityMap(final Iterable<? extends O> collection) {
         Objects.requireNonNull(collection, "collection");
         final Map<O, Integer> count = new HashMap<>();
-        for (final O obj : collection) {
-            /* * MDAS: Se extrae el bloque if/else de incremento a una función 
-             * para que el bucle for "haga una sola cosa" (Regla de Funciones). */
-            incrementFrequency(count, obj);
+        for (final O obj : coll) {
+            /* MDAS: Refactoring.guru -> Extract Method. El cuerpo del bucle se aísla 
+             * para que el nivel de abstracción del for sea uniforme. */
+            incrementCardinality(count, obj);
         }
         return count;
+
+
+
     }
 
     /*
@@ -1194,6 +1197,13 @@ public class CollectionUtils {
     * Se renombra la variable temporal 'c' a 'currentCount' para que 
     * revele su intención real en el contexto del mapa.
     */
+     private static <O> void incrementCardinality(final Map<O, Integer> countMap, final O obj) {
+        final Integer c = countMap.get(obj);
+        countMap.put(obj, c == null ? 1 : c + 1);
+    }
+
+ ⁠
+
     private static <O> void incrementFrequency(Map<O, Integer> countMap, O obj) {
         final Integer currentCount = countMap.get(obj);
         countMap.put(obj, currentCount == null ? 1 : currentCount + 1);
