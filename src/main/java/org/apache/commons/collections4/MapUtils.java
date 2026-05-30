@@ -80,6 +80,8 @@ import org.apache.commons.collections4.map.UnmodifiableSortedMap;
 @SuppressWarnings("deprecation")
 public class MapUtils {
 
+    private static final String THIS_MAP_STRING = "(this Map)";
+
     /**
      * An empty unmodifiable sorted map. This is not provided in the JDK.
      */
@@ -2011,7 +2013,7 @@ public class MapUtils {
                     out.print(childValue);
                 } else if (lineage.size() - 1 == lineageIndex) {
                    /* MDAS: VS Code 'Extract Constant'. Sustracción de Magic String en impresión. */
-                    out.print("(this Map)");
+                    out.print(THIS_MAP_STRING);
 
                 } else {
                     out.print("(ancestor[" + (lineage.size() - 1 - lineageIndex - 1) + "] Map)");
