@@ -2011,7 +2011,7 @@ public class MapUtils {
                     out.print(childValue);
                 } else if (lineage.size() - 1 == lineageIndex) {
                    /* MDAS: VS Code 'Extract Constant'. Sustracción de Magic String en impresión. */
-                    out.print(THIS_MAP_STRING);
+                    out.print("(this Map)");
 
                 } else {
                     out.print("(ancestor[" + (lineage.size() - 1 - lineageIndex - 1) + "] Map)");

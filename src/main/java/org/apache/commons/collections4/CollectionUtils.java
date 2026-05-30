@@ -759,14 +759,19 @@ public class CollectionUtils {
     public static <T> boolean containsAny(final Collection<?> coll1, @SuppressWarnings("unchecked") final T... coll2) {
         Objects.requireNonNull(coll1, "coll1");
         Objects.requireNonNull(coll2, "coll2");
-           /* MDAS: Refactoring.guru -> Extract Method. Se elimina la duplicidad del 
-         * bucle 'for' (Duplicate Code) delegándolo en un único método. */
         if (coll1.size() < coll2.length) {
-            return hasAnyElement(coll1, coll2);
+            for (final Object aColl1 : coll1) {
+                if (ArrayUtils.contains(coll2, aColl1)) {
+                    return true;
+                }
+            }
         } else {
-            return hasAnyElement(coll2, coll1);
+            for (final Object aColl2 : coll2) {
+                if (coll1.contains(aColl2)) {
+                    return true;
+                }
+            }
         }
-
         return false;
     }
        private static boolean hasAnyElement(final Collection<?> searchList, final Collection<?> targetCollection) {
@@ -1181,7 +1186,7 @@ public class CollectionUtils {
     public static <O> Map<O, Integer> getCardinalityMap(final Iterable<? extends O> collection) {
         Objects.requireNonNull(collection, "collection");
         final Map<O, Integer> count = new HashMap<>();
-        for (final O obj : coll) {
+        for (final O obj : collection) {
             /* MDAS: Refactoring.guru -> Extract Method. El cuerpo del bucle se aísla 
              * para que el nivel de abstracción del for sea uniforme. */
             incrementCardinality(count, obj);
