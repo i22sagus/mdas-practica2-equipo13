@@ -759,21 +759,27 @@ public class CollectionUtils {
     public static <T> boolean containsAny(final Collection<?> coll1, @SuppressWarnings("unchecked") final T... coll2) {
         Objects.requireNonNull(coll1, "coll1");
         Objects.requireNonNull(coll2, "coll2");
-        if (coll1.size() < coll2.length) {
-            for (final Object aColl1 : coll1) {
-                if (ArrayUtils.contains(coll2, aColl1)) {
-                    return true;
-                }
-            }
+           /* MDAS: Refactoring.guru -> Extract Method. Se elimina la duplicidad del 
+         * bucle 'for' (Duplicate Code) delegándolo en un único método. */
+        if (coll1.size() < coll2.size()) {
+            return hasAnyElement(coll1, coll2);
         } else {
-            for (final Object aColl2 : coll2) {
-                if (coll1.contains(aColl2)) {
-                    return true;
-                }
+            return hasAnyElement(coll2, coll1);
+        }
+
+        return false;
+    }
+       private static boolean hasAnyElement(final Collection<?> searchList, final Collection<?> targetCollection) {
+        for (final Object element : searchList) {
+            if (targetCollection.contains(element)) {
+                return true;
             }
         }
         return false;
     }
+  
+
+
 
     /**
      * Counts the number of elements in the input collection that match the
