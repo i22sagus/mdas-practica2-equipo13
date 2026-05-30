@@ -1197,12 +1197,13 @@ public class CollectionUtils {
     * Se renombra la variable temporal 'c' a 'currentCount' para que 
     * revele su intención real en el contexto del mapa.
     */
+
      private static <O> void incrementCardinality(final Map<O, Integer> countMap, final O obj) {
         final Integer c = countMap.get(obj);
         countMap.put(obj, c == null ? 1 : c + 1);
     }
 
- ⁠
+
 
     private static <O> void incrementFrequency(Map<O, Integer> countMap, O obj) {
         final Integer currentCount = countMap.get(obj);
