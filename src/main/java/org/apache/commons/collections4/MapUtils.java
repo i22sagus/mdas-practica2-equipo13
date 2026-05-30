@@ -2017,12 +2017,15 @@ public class MapUtils {
                     out.print("(ancestor[" + (lineage.size() - 1 - lineageIndex - 1) + "] Map)");
                 }
 
-                if (debug && childValue != null) {
+                /* MDAS: VS Code 'Invert If Condition'. El IDE reescribe la sentencia 
+                 * para favorecer una estructura más declarativa y segura. */
+                if (!debug || childValue == null) {
+                    out.println();
+                } else {
                     out.print(' ');
                     out.println(childValue.getClass().getName());
-                } else {
-                    out.println();
                 }
+
             }
         }
 
