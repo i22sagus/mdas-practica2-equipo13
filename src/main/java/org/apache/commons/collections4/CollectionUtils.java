@@ -761,7 +761,7 @@ public class CollectionUtils {
         Objects.requireNonNull(coll2, "coll2");
            /* MDAS: Refactoring.guru -> Extract Method. Se elimina la duplicidad del 
          * bucle 'for' (Duplicate Code) delegándolo en un único método. */
-        if (coll1.size() < coll2.size()) {
+        if (coll1.size() < coll2.length) {
             return hasAnyElement(coll1, coll2);
         } else {
             return hasAnyElement(coll2, coll1);
