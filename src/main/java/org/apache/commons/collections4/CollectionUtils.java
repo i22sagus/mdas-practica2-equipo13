@@ -18,6 +18,7 @@ package org.apache.commons.collections4;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -760,21 +761,13 @@ public class CollectionUtils {
         Objects.requireNonNull(coll1, "coll1");
         Objects.requireNonNull(coll2, "coll2");
         if (coll1.size() < coll2.length) {
-            for (final Object aColl1 : coll1) {
-                if (ArrayUtils.contains(coll2, aColl1)) {
-                    return true;
-                }
-            }
+            return hasAnyElement(coll1, Arrays.asList(coll2));
         } else {
-            for (final Object aColl2 : coll2) {
-                if (coll1.contains(aColl2)) {
-                    return true;
-                }
-            }
+            return hasAnyElement(Arrays.asList(coll2), coll1);
         }
-        return false;
     }
-       private static boolean hasAnyElement(final Collection<?> searchList, final Collection<?> targetCollection) {
+
+    private static boolean hasAnyElement(final Collection<?> searchList, final Collection<?> targetCollection) {
         for (final Object element : searchList) {
             if (targetCollection.contains(element)) {
                 return true;
@@ -782,8 +775,6 @@ public class CollectionUtils {
         }
         return false;
     }
-  
-
 
 
     /**
